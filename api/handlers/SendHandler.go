@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"encoding/json"
 	"log"
+
+	"github.com/alohamat/go-ai-chatbot/services"
 )
 
 type prompt struct {
@@ -18,4 +20,8 @@ func SendHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	log.Printf("json received: %s", req.Prompt)
+	result := services.AITextSend(req.Prompt)
+	log.Printf("ai result %s", result)
+	
+	json.NewEncoder(w).Encode(result)
 }
