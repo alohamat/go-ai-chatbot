@@ -9,6 +9,11 @@ import (
 
 func main() {
 	r := routes.InitRouter()
-	log.Println("server running at 8080")
-	log.Fatalln(http.ListenAndServe(":8080", r))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	log.Println("server running at port", port)
+	log.Fatalln(http.ListenAndServe(":"+port, r))
 }
